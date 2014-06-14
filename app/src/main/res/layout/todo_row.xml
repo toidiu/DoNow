@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/list_height"
+    android:background="@color/white"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:padding="10dp"
+    >
+
+    <LinearLayout
+        android:id="@+id/imgWrap"
+        android:layout_width="@dimen/list_height"
+        android:layout_height="@dimen/list_height"
+        android:background="@drawable/rounded_rect"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:antialias="true"
+            android:dither="true"
+
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+
+            android:contentDescription="TODO"
+            android:src="@drawable/ic_launcher" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/task"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/list_height"
+
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/imgWrap"
+        android:layout_marginLeft="20dp"
+
+        android:ellipsize="marquee"
+        android:gravity="center_vertical"
+        android:text="Example application"
+        android:textSize="20sp"/>
+
+
+</RelativeLayout>
+
