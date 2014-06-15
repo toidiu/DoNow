@@ -63,8 +63,14 @@ public class SaveLoadHandler<T> {
             e.printStackTrace();
         }
 
+
+        if (builder == null){
+            Log.d("resr", "aaaaaaaaaa");
+            return null;
+        }
         Gson gson = new Gson();
         Log.d("READ", builder.toString());
+
         return gson.fromJson(builder.toString(), this.type);
     }
 

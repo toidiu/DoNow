@@ -39,8 +39,8 @@ public class Main extends Activity {
         this.slh = new SaveLoadHandler(type, SAVE_FILE);
 
         //load data and sort
-        list = this.slh.loadData(this);
-        ArrayList<ToDoItem> listTemp = null;
+        ArrayList<ToDoItem> listTemp = this.slh.loadData(this);
+        if (listTemp != null) list = listTemp;
         listTemp = SortToDo.sort(list);
         list = listTemp;
 
