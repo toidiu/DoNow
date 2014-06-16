@@ -1,6 +1,7 @@
 package toidiu.com.donow.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Handler;
 import android.util.Log;
@@ -77,11 +78,13 @@ public class ListAdapter extends ArrayAdapter<ToDoItem> implements AddDiagFragLi
             holder.t.setText(temp.getTask());
 //            holder.t.setText( "test1" );
             if(temp.getStatus() == true){
+                ((TextView) vi.findViewById(R.id.task)).setTextColor(Color.LTGRAY);
                 GradientDrawable d = (GradientDrawable) vi.findViewById(R.id.imgWrap).getBackground();
-                d.setColor(Ctx.getResources().getColor(R.color.MistyRose));
+                d.setColor(Ctx.getResources().getColor(R.color.silver));
             }else{
+                ((TextView) vi.findViewById(R.id.task)).setTextColor(Color.BLACK);
                 GradientDrawable d = (GradientDrawable) vi.findViewById(R.id.imgWrap).getBackground();
-                d.setColor(Ctx.getResources().getColor(R.color.SkyBlue));
+                d.setColor(Ctx.getResources().getColor(R.color.LightBlue));
             }
             holder.i.setImageResource(R.drawable.ic_launcher);
 

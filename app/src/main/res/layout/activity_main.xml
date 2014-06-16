@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="35dip"
         android:layout_alignParentBottom="true"
-        android:background="#aa0"
+        android:background="@color/IndianRed"
         android:text="Add"/>
 
     <ListView android:id="@+id/listview"
