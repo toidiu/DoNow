@@ -65,7 +65,6 @@ public class SaveLoadHandler<T> {
 
 
         if (builder == null){
-            Log.d("resr", "aaaaaaaaaa");
             return null;
         }
         Gson gson = new Gson();
