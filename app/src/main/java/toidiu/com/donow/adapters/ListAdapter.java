@@ -1,5 +1,7 @@
 package toidiu.com.donow.adapters;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
@@ -15,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -98,7 +101,8 @@ public class ListAdapter extends ArrayAdapter<ToDoItem> implements AddDiagFragLi
             int i = 0;
 
             @Override
-            public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, final View view,
+                                    int position, long id) {
                 i++;
                 Handler handler = new Handler();
                 final ToDoItem item = (ToDoItem) parent.getItemAtPosition(position);
@@ -129,6 +133,28 @@ public class ListAdapter extends ArrayAdapter<ToDoItem> implements AddDiagFragLi
 
         });
 
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                           int position, long id) {
+                int i = position - 1 ;
+                final ToDoItem item = (ToDoItem) parent.getItemAtPosition(position);
+
+                String s = item.getTask();
+                ClipboardManager clipboardManager;
+                clipboardManager = (ClipboardManager) Ctx.getSystemService(Context.CLIPBOARD_SERVICE);
+
+                ClipData myClip;
+                myClip = ClipData.newPlainText("text", s);
+                clipboardManager.setPrimaryClip(myClip);
+
+                Toast.makeText(Ctx, "Copied to clipboard", Toast.LENGTH_LONG).show();
+
+                return true;
+            }
+        });
     }
 
     @Override
