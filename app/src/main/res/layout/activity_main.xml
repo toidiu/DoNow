@@ -15,7 +15,8 @@
         android:background="@color/IndianRed"
         android:text="Add"/>
 
-    <ListView android:id="@+id/listview"
+    <de.timroes.android.listview.EnhancedListView
+        android:id="@+id/listview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -23,10 +24,22 @@
         android:divider="@color/GhostWhite"
         android:layout_toStartOf="@id/listview"
         android:layout_above="@+id/add"
-        android:layout_marginBottom="20dp"
-        >
+        android:layout_marginBottom="20dp" >
+
+    </de.timroes.android.listview.EnhancedListView>
+        <!---->
+    <!--<ListView android:id="@+id/listview"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:dividerHeight="5.0dp"-->
+        <!--android:divider="@color/GhostWhite"-->
+        <!--android:layout_toStartOf="@id/listview"-->
         <!--android:layout_above="@+id/add"-->
-    </ListView>
+        <!--android:layout_marginBottom="20dp"-->
+        <!-->-->
+        <!--&lt;!&ndash;android:layout_above="@+id/add"&ndash;&gt;-->
+    <!--</ListView>-->
 
 
 
