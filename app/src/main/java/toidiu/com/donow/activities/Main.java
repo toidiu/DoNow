@@ -7,13 +7,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+import de.timroes.android.listview.EnhancedListView;
 import toidiu.com.donow.R;
 import toidiu.com.donow.adapters.ListAdapter;
 import toidiu.com.donow.fragments.DiagFrag;
@@ -45,7 +45,8 @@ public class Main extends Activity {
         list = listTemp;
 
         //init listview and its adapter
-        final ListView listview = (ListView) findViewById(R.id.listview);
+//        final EnhancedListView l =
+        final EnhancedListView listview = (EnhancedListView) findViewById(R.id.listview);
         final ListAdapter adapter = new ListAdapter(this, R.layout.todo_row,
                 list, listview);
         listview.setAdapter(adapter);

@@ -5,8 +5,6 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +13,13 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import de.timroes.android.listview.EnhancedListView;
 import toidiu.com.donow.R;
 import toidiu.com.donow.interfaces.AddDiagFragListener;
 import toidiu.com.donow.structs.ToDoItem;
@@ -31,13 +29,13 @@ public class ListAdapter extends ArrayAdapter<ToDoItem> implements AddDiagFragLi
 
     private ArrayList<ToDoItem> list = new ArrayList();
     private HashMap<String, Integer> mIdMap = new HashMap();
-    private ListView listView;
+    private EnhancedListView listView;
     private Context Ctx;
     private ViewHolder holder;
     private static LayoutInflater inflater = null;
     ToDoItem temp = null;
 
-    public ListAdapter(Context ctx, int textViewResourceId, final ArrayList<ToDoItem> list, ListView listView) {
+    public ListAdapter(Context ctx, int textViewResourceId, final ArrayList<ToDoItem> list, EnhancedListView listView) {
         super(ctx, textViewResourceId, list);
 //        for (int i = 0; i < obj.size(); ++i) {
 //            mIdMap.put(obj.get(i), i);
@@ -49,6 +47,7 @@ public class ListAdapter extends ArrayAdapter<ToDoItem> implements AddDiagFragLi
         this.inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         setItemListener();
+        setSwipeDismiss();
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -98,49 +97,24 @@ public class ListAdapter extends ArrayAdapter<ToDoItem> implements AddDiagFragLi
     //set listener for list item click
     private void setItemListener() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            int i = 0;
-
             @Override
             public void onItemClick(AdapterView<?> parent, final View view,
-                                    int position, long id) {
-                i++;
-                Handler handler = new Handler();
-                final ToDoItem item = (ToDoItem) parent.getItemAtPosition(position);
+                                    int pos, long id) {
+                final ToDoItem item = (ToDoItem) parent.getItemAtPosition(pos);
 
-                Runnable r = new Runnable() {
-                    @Override
-                    public void run() {
-                        if(i==1){
-                            Log.d("TEST LIST", "1");
-                            item.toggleStatus();
-                            SortToDo.sort(list);
-                            notifyDataSetChanged();
-                            i = 0;
-                        } else{
-                            Log.d("TEST LIST","2");
-                            list.remove(item);
-                            notifyDataSetChanged();
-                            i = 0;
-                        }
-                    }
-                };
+                item.toggleStatus();
+                SortToDo.sort(list);
+                notifyDataSetChanged();
 
-                if(i==1){
-                    handler.postDelayed(r, 400);
-                }
-
-            }
-
+            };
         });
 
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view,
-                                           int position, long id) {
-                int i = position - 1 ;
-                final ToDoItem item = (ToDoItem) parent.getItemAtPosition(position);
+                                           int pos, long id) {
+                final ToDoItem item = (ToDoItem) parent.getItemAtPosition(pos);
 
                 String s = item.getTask();
                 ClipboardManager clipboardManager;
@@ -155,6 +129,22 @@ public class ListAdapter extends ArrayAdapter<ToDoItem> implements AddDiagFragLi
                 return true;
             }
         });
+    }
+
+    //set swipe to dismiss listener
+    private void setSwipeDismiss() {
+        listView.setDismissCallback( new EnhancedListView.OnDismissCallback() {
+            final EnhancedListView l = listView;
+            @Override
+            public EnhancedListView.Undoable onDismiss(EnhancedListView enhancedListView, int pos) {
+                final ToDoItem item = (ToDoItem) l.getItemAtPosition(pos);
+                list.remove(item);
+                notifyDataSetChanged();
+                return null;
+            }
+        });
+
+        listView.enableSwipeToDismiss();
     }
 
     @Override
