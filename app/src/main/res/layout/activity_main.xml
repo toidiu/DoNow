@@ -3,17 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
+    android:padding="0dp"
     android:background="@color/GhostWhite"
     tools:context="com.toidiu.todo.MainActivity$PlaceholderFragment">
 
-
     <Button android:id="@+id/add"
         android:layout_width="match_parent"
-        android:layout_height="35dip"
+        android:layout_height="40dip"
         android:layout_alignParentBottom="true"
         android:background="@color/IndianRed"
-        android:text="Add"/>
+        android:text="Add"
+        android:singleLine="true"
+        android:textColor="@color/GhostWhite" />
 
     <de.timroes.android.listview.EnhancedListView
         android:id="@+id/listview"
@@ -26,20 +27,6 @@
         android:layout_above="@+id/add"
         android:layout_marginBottom="20dp" >
     </de.timroes.android.listview.EnhancedListView>
-        <!---->
-    <!--<ListView android:id="@+id/listview"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:dividerHeight="5.0dp"-->
-        <!--android:divider="@color/GhostWhite"-->
-        <!--android:layout_toStartOf="@id/listview"-->
-        <!--android:layout_above="@+id/add"-->
-        <!--android:layout_marginBottom="20dp"-->
-        <!-->-->
-        <!--&lt;!&ndash;android:layout_above="@+id/add"&ndash;&gt;-->
-    <!--</ListView>-->
-
 
 
 </RelativeLayout>

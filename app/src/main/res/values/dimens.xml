@@ -3,4 +3,5 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="list_height">50dip</dimen>
+    <dimen name="elv_touch_slop">60dp</dimen>
 </resources>
