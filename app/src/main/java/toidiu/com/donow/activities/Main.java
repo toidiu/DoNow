@@ -6,7 +6,6 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -14,6 +13,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import de.timroes.android.listview.EnhancedListView;
 import toidiu.com.donow.R;
@@ -40,17 +40,13 @@ public class Main extends Activity {
         setContentView(R.layout.activity_main);
         addButton = (Button) findViewById(R.id.add);
 
-
-
         //init save/load handler
         Type type = new TypeToken<ArrayList<ToDoItem>>(){}.getType();
         this.slh = new SaveLoadHandler(type, SAVE_FILE);
 
-
         //Prefs for detecting first time starting
         sharedPref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         Boolean firstStart = sharedPref.getBoolean(FIRST_START, false);
-    Log.d("test", firstStart.toString());
 
         if(firstStart) {
             //load data and sort
@@ -59,21 +55,15 @@ public class Main extends Activity {
             listTemp = SortToDo.sort(list);
             list = listTemp;
         }else{
-            ToDoItem toDoItems[] = {
-                    new ToDoItem("Do"),
-                    new ToDoItem("it"),
-                    new ToDoItem("Now!"),
-                    new ToDoItem("Done"),
-                    new ToDoItem("Swipe to Dismiss", false)
+            ToDoItem[] toDoItems = {
+                    new ToDoItem("Do it Now!"),
+                    new ToDoItem("Tap to Toggle", true),
+                    new ToDoItem("Swipe to Dismiss", true)
             };
-            list.add(toDoItems[0]);
-            list.add(toDoItems[1]);
-            list.add(toDoItems[2]);
+            list.addAll(Arrays.asList(toDoItems));  // toDoItems
 
             //mark as opened first time
             sharedPref.edit().putBoolean(FIRST_START, true).commit();
-    firstStart = sharedPref.getBoolean(FIRST_START, false);
-    Log.d("test", firstStart.toString());
         }
 
         //init listview and its adapter
