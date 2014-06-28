@@ -6,6 +6,7 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
@@ -73,7 +74,7 @@ public class Main extends Activity {
         listview.setAdapter(adapter);
 
         //init touch listerners
-        initListener(Main.this, adapter);
+        initButtonListener(Main.this, adapter);
     }
 
     @Override
@@ -83,8 +84,27 @@ public class Main extends Activity {
     }
 
     //Listener for UI
-    private void initListener(final Context ctx, final ListAdapter adapter){
-        //add text button listener
+    private void initButtonListener (final Context ctx, final ListAdapter adapter){
+        //Touch listener
+        addButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int eventaction = event.getAction();
+                switch (eventaction ) {
+                    case MotionEvent.ACTION_DOWN: { // touch on the screen event
+                        v.findViewById(R.id.add).setBackgroundColor(ctx.getResources().getColor(R.color.win8_orange));
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        v.findViewById(R.id.add).setBackgroundColor(ctx.getResources().getColor(R.color.IndianRed));
+                        break;
+                    }
+                }
+                return true;
+            }
+        });
+
+        //Click button listener
         addButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View view) {
                 showDialog(adapter);
