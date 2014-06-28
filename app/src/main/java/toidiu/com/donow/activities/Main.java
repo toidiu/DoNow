@@ -100,7 +100,7 @@ public class Main extends Activity {
                         break;
                     }
                 }
-                return true;
+                return false;
             }
         });
 
