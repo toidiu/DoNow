@@ -3,7 +3,6 @@ package toidiu.com.donow.adapters;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -68,9 +67,9 @@ public class ListAdapter extends ArrayAdapter<ToDoItem> implements AddDiagFragLi
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
 
-                    ((TextView) v.findViewById(R.id.task)).setTextColor(Color.BLUE);
+                    ((TextView) v.findViewById(R.id.task)).setTextColor(Ctx.getResources().getColor(R.color.DarkKhaki));
                     GradientDrawable d = (GradientDrawable) v.findViewById(R.id.imgWrap).getBackground();
-                    d.setColor(Ctx.getResources().getColor(R.color.win8_orange));
+//                    d.setColor(Ctx.getResources().getColor(R.color.win8_orange));
                     return false;
                 }
             });
@@ -92,13 +91,13 @@ public class ListAdapter extends ArrayAdapter<ToDoItem> implements AddDiagFragLi
             holder.t.setText(temp.getTask());
 //            holder.t.setText( "test1" );
             if(temp.getStatus() == true){
-                ((TextView) vi.findViewById(R.id.task)).setTextColor(Color.LTGRAY);
+                ((TextView) vi.findViewById(R.id.task)).setTextColor(Ctx.getResources().getColor(R.color.LightGrey));
                 GradientDrawable d = (GradientDrawable) vi.findViewById(R.id.imgWrap).getBackground();
                 d.setColor(Ctx.getResources().getColor(R.color.silver));
             }else{
-                ((TextView) vi.findViewById(R.id.task)).setTextColor(Color.BLACK);
+                ((TextView) vi.findViewById(R.id.task)).setTextColor(Ctx.getResources().getColor(R.color.black));
                 GradientDrawable d = (GradientDrawable) vi.findViewById(R.id.imgWrap).getBackground();
-                d.setColor(Ctx.getResources().getColor(R.color.LightBlue));
+                d.setColor(Ctx.getResources().getColor(R.color.win8_orange));
             }
             holder.i.setImageResource(R.drawable.ic_launcher);
 
@@ -136,7 +135,7 @@ public class ListAdapter extends ArrayAdapter<ToDoItem> implements AddDiagFragLi
                 myClip = ClipData.newPlainText("text", s);
                 clipboardManager.setPrimaryClip(myClip);
 
-                Toast.makeText(Ctx, "Copied to clipboard", Toast.LENGTH_LONG).show();
+                Toast.makeText(Ctx, "Task copied", Toast.LENGTH_SHORT).show();
 
                 return false;
             }

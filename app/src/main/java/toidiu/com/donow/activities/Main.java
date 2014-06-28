@@ -67,7 +67,6 @@ public class Main extends Activity {
         }
 
         //init listview and its adapter
-//        final EnhancedListView l =
         final EnhancedListView listview = (EnhancedListView) findViewById(R.id.listview);
         final ListAdapter adapter = new ListAdapter(this, R.layout.todo_row,
                 list, listview);
