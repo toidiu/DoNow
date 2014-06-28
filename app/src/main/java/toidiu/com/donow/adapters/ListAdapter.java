@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -62,6 +63,17 @@ public class ListAdapter extends ArrayAdapter<ToDoItem> implements AddDiagFragLi
             holder.t = (TextView) vi.findViewById(R.id.task);
             holder.i = (ImageView) vi.findViewById(R.id.image);
             holder.l = (LinearLayout) vi.findViewById(R.id.imgWrap);
+
+            vi.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+
+                    ((TextView) v.findViewById(R.id.task)).setTextColor(Color.BLUE);
+                    GradientDrawable d = (GradientDrawable) v.findViewById(R.id.imgWrap).getBackground();
+                    d.setColor(Ctx.getResources().getColor(R.color.win8_orange));
+                    return false;
+                }
+            });
 
             vi.setTag(holder);
 
@@ -126,7 +138,7 @@ public class ListAdapter extends ArrayAdapter<ToDoItem> implements AddDiagFragLi
 
                 Toast.makeText(Ctx, "Copied to clipboard", Toast.LENGTH_LONG).show();
 
-                return true;
+                return false;
             }
         });
     }
