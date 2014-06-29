@@ -67,9 +67,24 @@ public class ListAdapter extends ArrayAdapter<ToDoItem> implements AddDiagFragLi
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
 
-                    ((TextView) v.findViewById(R.id.task)).setTextColor(Ctx.getResources().getColor(R.color.DarkKhaki));
-                    GradientDrawable d = (GradientDrawable) v.findViewById(R.id.imgWrap).getBackground();
+                    int eventaction = event.getAction();
+                    switch (eventaction ) {
+                        case MotionEvent.ACTION_DOWN: { // touch on the screen event
+                            ((TextView) v.findViewById(R.id.task)).setTextColor(Ctx.getResources().getColor(R.color.Goldenrod));
+                            break;
+                        }
+//                        case MotionEvent.ACTION_MOVE: {
+//                            ((TextView) v.findViewById(R.id.task)).setTextColor(Ctx.getResources().getColor(R.color.Indigo));
+//                            break;
+//                        }
+//                        case MotionEvent.ACTION_UP: {
+//                            ((TextView) v.findViewById(R.id.task)).setTextColor(Ctx.getResources().getColor(R.color.DarkGreen));
+//                            break;
+//                        }
+                    }
+//                    GradientDrawable d = (GradientDrawable) v.findViewById(R.id.imgWrap).getBackground();
 //                    d.setColor(Ctx.getResources().getColor(R.color.win8_orange));
+
                     return false;
                 }
             });
