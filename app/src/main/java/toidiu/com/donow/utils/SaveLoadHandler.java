@@ -1,6 +1,5 @@
 package toidiu.com.donow.utils;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -15,49 +14,46 @@ import java.lang.reflect.Type;
 
 public class SaveLoadHandler<T> {
 
-    protected final Type type;
-    private String Filename;
+    private final Type type;
+    private File File;
 
-    public SaveLoadHandler(Type type, String filename){
+    public SaveLoadHandler(Type type, File file){
         this.type = type;
-        this.Filename = filename;
+        this.File = file;
         //Log.d("------TYPE--------",           this.type.toString());
     }
 
-    public void saveData(Context ctx, T data){
+    public void saveData(T data){
         Gson gson = new Gson();
         String write = gson.toJson(data, this.type);
         Log.d("Write", write);
 
-
-        File file = new File(ctx.getFilesDir() + File.separator + this.Filename);
 //Log.d("TEST","WRITING TO FILE: " + file.getAbsolutePath());
         FileWriter fileWriter = null;
         try {
-            fileWriter = new FileWriter(file, false);
+            fileWriter = new FileWriter(File, false);
 
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(write);
-            bufferedWriter.close();
+            BufferedWriter bw = new BufferedWriter(fileWriter);
+            bw.write(write);
+            bw.close();
         } catch (IOException e) {
             Log.e("TEST","EXCEPTION WHEN WRITING FILE");
             e.printStackTrace();
         }
     }
 
-    public T loadData(Context ctx) {
+    public T loadData() {
         StringBuilder builder = new StringBuilder("");
-        File file = new File(ctx.getFilesDir() + File.separator + this.Filename);
 
         try {
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            FileReader fileReader = new FileReader(File);
+            BufferedReader br = new BufferedReader(fileReader);
 
-            String read;
-            while((read = bufferedReader.readLine()) != null){
-                builder.append(read);
+            String line;
+            while((line = br.readLine()) != null){
+                builder.append(line);
             }
-            bufferedReader.close();
+            br.close();
 
         } catch (IOException e) {
             e.printStackTrace();

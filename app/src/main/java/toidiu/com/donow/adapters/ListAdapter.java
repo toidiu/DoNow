@@ -17,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import de.timroes.android.listview.EnhancedListView;
 import toidiu.com.donow.R;
@@ -28,7 +27,6 @@ import toidiu.com.donow.utils.SortToDo;
 public class ListAdapter extends ArrayAdapter<ToDoItem> implements AddDiagFragListener {
 
     private ArrayList<ToDoItem> list = new ArrayList();
-    private HashMap<String, Integer> mIdMap = new HashMap();
     private EnhancedListView listView;
     private Context Ctx;
     private ViewHolder holder;
@@ -37,9 +35,6 @@ public class ListAdapter extends ArrayAdapter<ToDoItem> implements AddDiagFragLi
 
     public ListAdapter(Context ctx, int textViewResourceId, final ArrayList<ToDoItem> list, EnhancedListView listView) {
         super(ctx, textViewResourceId, list);
-//        for (int i = 0; i < obj.size(); ++i) {
-//            mIdMap.put(obj.get(i), i);
-//        }
 
         this.Ctx = ctx;
         this.list = list;
@@ -51,7 +46,6 @@ public class ListAdapter extends ArrayAdapter<ToDoItem> implements AddDiagFragLi
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-//        return super.getView(position, convertView, parent);
 
         View vi = convertView;
 

@@ -1,7 +1,6 @@
 package toidiu.com.donow.activities;
 
 
-import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,11 +11,16 @@ import android.widget.Button;
 
 import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import de.timroes.android.listview.EnhancedListView;
+import roboguice.activity.RoboActivity;
+import roboguice.inject.ContentView;
+import roboguice.inject.InjectResource;
+import roboguice.inject.InjectView;
 import toidiu.com.donow.R;
 import toidiu.com.donow.adapters.ListAdapter;
 import toidiu.com.donow.fragments.DiagFrag;
@@ -24,12 +28,20 @@ import toidiu.com.donow.structs.ToDoItem;
 import toidiu.com.donow.utils.SaveLoadHandler;
 import toidiu.com.donow.utils.SortToDo;
 
-public class Main extends Activity {
+@ContentView(R.layout.activity_main)
+public class Main extends RoboActivity {
+
+    @InjectView(R.id.add)   Button addButton;
+    @InjectView (R.id.listview) EnhancedListView listview;
+    @InjectResource(R.color.win8_orange) int winOrange;
+    @InjectResource(R.color.IndianRed) int indRed;
+
 
     public ArrayList<ToDoItem> list = new ArrayList();
     private final static String SAVE_FILE = "instance.json";
-    private Button addButton;
+//    private Button addButton;
     private SaveLoadHandler<ArrayList<ToDoItem>> slh;
+    public File FILE;
 
     private static SharedPreferences sharedPref;
     public static final String PREFS_NAME = "PrefsFile";
@@ -38,12 +50,11 @@ public class Main extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        addButton = (Button) findViewById(R.id.add);
 
         //init save/load handler
+        FILE = new File(this.getFilesDir() + File.separator + SAVE_FILE);
         Type type = new TypeToken<ArrayList<ToDoItem>>(){}.getType();
-        this.slh = new SaveLoadHandler(type, SAVE_FILE);
+        this.slh = new SaveLoadHandler(type, FILE);
 
         //Prefs for detecting first time starting
         sharedPref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
@@ -51,7 +62,7 @@ public class Main extends Activity {
 
         if(firstStart) {
             //load data and sort
-            ArrayList<ToDoItem> listTemp = this.slh.loadData(this);
+            ArrayList<ToDoItem> listTemp = this.slh.loadData();
             if (listTemp != null) list = listTemp;
             listTemp = SortToDo.sort(list);
             list = listTemp;
@@ -68,7 +79,6 @@ public class Main extends Activity {
         }
 
         //init listview and its adapter
-        final EnhancedListView listview = (EnhancedListView) findViewById(R.id.listview);
         final ListAdapter adapter = new ListAdapter(this, R.layout.todo_row,
                 list, listview);
         listview.setAdapter(adapter);
@@ -80,7 +90,7 @@ public class Main extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        slh.saveData(this, list);
+        slh.saveData(list);
     }
 
     //Listener for UI
@@ -92,11 +102,11 @@ public class Main extends Activity {
                 int eventaction = event.getAction();
                 switch (eventaction ) {
                     case MotionEvent.ACTION_DOWN: { // touch on the screen event
-                        v.findViewById(R.id.add).setBackgroundColor(ctx.getResources().getColor(R.color.win8_orange));
+                        addButton.setBackgroundColor(winOrange);
                         break;
                     }
                     case MotionEvent.ACTION_UP: {
-                        v.findViewById(R.id.add).setBackgroundColor(ctx.getResources().getColor(R.color.IndianRed));
+                        addButton.setBackgroundColor(indRed);
                         break;
                     }
                 }
